@@ -8,14 +8,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class UserResource extends BaseModelResource {
+public class AccountResource extends BaseModelResource {
     private Long id;
-    private Long accountId;
+    private Long userId;
     private String createdDate;
     private String updatedDate;
     private String name;
-    private String surname;
-    private String email;
-    private String phoneNumber;
-    private String password;
+    private Long type;
 }

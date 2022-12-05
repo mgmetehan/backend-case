@@ -7,6 +7,8 @@ import com.mgmetehan.accountAndUser.shared.model.resource.UserResource;
 import com.mgmetehan.accountAndUser.shared.util.DateUtil;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 @Component
 public class UserConverter implements BaseConverter<UserDto, User, UserResource> {
 
@@ -14,6 +16,7 @@ public class UserConverter implements BaseConverter<UserDto, User, UserResource>
     public UserResource toResource(User entity) {
         var userResource = new UserResource();
         userResource.setId(entity.getId());
+        userResource.setAccountId(Objects.isNull(entity.getAccount()) ? null : entity.getAccount().getId());
         userResource.setCreatedDate(DateUtil.toDate(entity.getCreatedDateTime()));
         userResource.setUpdatedDate(DateUtil.toDate(entity.getLastModifiedDate()));
         userResource.setName(entity.getName());

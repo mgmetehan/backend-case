@@ -1,10 +1,12 @@
 package com.mgmetehan.accountAndUser.service.impl;
 
 import com.mgmetehan.accountAndUser.converter.UserConverter;
+import com.mgmetehan.accountAndUser.model.Account;
 import com.mgmetehan.accountAndUser.repository.UserRepository;
 import com.mgmetehan.accountAndUser.service.UserService;
 import com.mgmetehan.accountAndUser.shared.exception.NotFoundException;
 import com.mgmetehan.accountAndUser.shared.model.dto.UserDto;
+import com.mgmetehan.accountAndUser.shared.model.resource.AccountResource;
 import com.mgmetehan.accountAndUser.shared.model.resource.UserResource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -54,6 +56,18 @@ public class UserSeviceImpl implements UserService {
         final var theReal = userRepository.findById(id).orElseThrow(() -> new NotFoundException("Not Found Exception"));
         var forSave = userConverter.toEntity(userUpdateDto);
         theReal.update(forSave);
+
+        return userConverter
+                .toResource(userRepository.save(theReal));
+    }
+
+    @Override
+    public UserResource updateAccountId(Long id, AccountResource accountResource) {
+        final var theReal = userRepository.findById(id).orElseThrow(() -> new NotFoundException("Not Found Exception"));
+
+        var account=new Account();
+        account.setId(accountResource.getId());
+        theReal.setAccount(account);
 
         return userConverter
                 .toResource(userRepository.save(theReal));

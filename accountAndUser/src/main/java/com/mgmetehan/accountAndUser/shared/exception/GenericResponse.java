@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public final class GenericResponse {
+public final class GenericResponse extends Throwable {
     private String message;
 }

@@ -30,8 +30,6 @@ public abstract class BaseModel implements Serializable {
 
     protected Date lastModifiedDate;
 
-    private boolean enable = true;
-
     public abstract <T extends BaseModel> void update(T entity);
 
     @PrePersist

@@ -25,7 +25,7 @@ public class Account extends BaseModel {
     @Enumerated(EnumType.STRING)
     private AccountType type;
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "account", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<User> users = new ArrayList<>();
 
     @Override
