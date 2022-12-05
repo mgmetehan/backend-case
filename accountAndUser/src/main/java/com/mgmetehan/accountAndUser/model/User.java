@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -29,6 +30,22 @@ public class User extends BaseModel {
 
     @Override
     public <T extends BaseModel> void update(T entity) {
+        var user = (User) entity;
 
+        if (Objects.nonNull(user.getName())) {
+            name = user.getName();
+        }
+        if (Objects.nonNull(user.getSurname())) {
+            surname = user.getSurname();
+        }
+        if (Objects.nonNull(user.getEmail())) {
+            email = user.getEmail();
+        }
+        if (Objects.nonNull(user.getPhoneNumber())) {
+            phoneNumber = user.getPhoneNumber();
+        }
+        if (Objects.nonNull(user.getPassword())) {
+            password = user.getPassword();
+        }
     }
 }

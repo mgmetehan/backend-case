@@ -15,6 +15,7 @@ public class UserConverter implements BaseConverter<UserDto, User, UserResource>
         var userResource = new UserResource();
         userResource.setId(entity.getId());
         userResource.setCreatedDate(DateUtil.toDate(entity.getCreatedDateTime()));
+        userResource.setUpdatedDate(DateUtil.toDate(entity.getLastModifiedDate()));
         userResource.setName(entity.getName());
         userResource.setSurname(entity.getSurname());
         userResource.setEmail(entity.getEmail());

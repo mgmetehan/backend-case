@@ -3,11 +3,15 @@ package com.mgmetehan.accountAndUser.service.impl;
 import com.mgmetehan.accountAndUser.converter.UserConverter;
 import com.mgmetehan.accountAndUser.repository.UserRepository;
 import com.mgmetehan.accountAndUser.service.UserService;
+import com.mgmetehan.accountAndUser.shared.exception.NotFoundException;
 import com.mgmetehan.accountAndUser.shared.model.dto.UserDto;
 import com.mgmetehan.accountAndUser.shared.model.resource.UserResource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -28,5 +32,30 @@ public class UserSeviceImpl implements UserService {
         var optionalUser = userRepository.findById(id);
         var user = optionalUser.orElseThrow();
         return userConverter.toResource(user);
+    }
+
+    @Override
+    public List<UserResource> getAllUsers() {
+        return userRepository
+                .findAll()
+                .stream()
+                .map(userConverter::toResource)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        final var user = userRepository.findById(id).orElseThrow(() -> new NotFoundException("Not Found Exception"));
+        userRepository.deleteById(id);
+    }
+
+    @Override
+    public UserResource updateUser(Long id, UserDto userUpdateDto) {
+        final var theReal = userRepository.findById(id).orElseThrow(() -> new NotFoundException("Not Found Exception"));
+        var forSave = userConverter.toEntity(userUpdateDto);
+        theReal.update(forSave);
+
+        return userConverter
+                .toResource(userRepository.save(theReal));
     }
 }

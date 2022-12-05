@@ -4,14 +4,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -26,14 +26,21 @@ public abstract class BaseModel implements Serializable {
     private Long id;
 
     @Column(nullable = false)
-    @CreationTimestamp
     private Date createdDateTime;
 
-    @LastModifiedDate
     protected Date lastModifiedDate;
 
     private boolean enable = true;
 
     public abstract <T extends BaseModel> void update(T entity);
 
+    @PrePersist
+    public void onCreate() {
+        this.createdDateTime = new Date();
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        this.lastModifiedDate = new Date();
+    }
 }

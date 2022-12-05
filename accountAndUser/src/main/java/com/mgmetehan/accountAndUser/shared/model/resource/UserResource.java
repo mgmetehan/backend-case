@@ -11,6 +11,7 @@ import lombok.ToString;
 public class UserResource extends BaseModelResource {
     private Long id;
     private String createdDate;
+    private String updatedDate;
     private String name;
     private String surname;
     private String email;
