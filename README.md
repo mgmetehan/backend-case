@@ -1,7 +1,7 @@
 # Account&User
-Spring Boot ile ekleme,silme,g?nceleme,arama fonksiyonlar? var. Verileri H2 Database ?zerinde tutan basit bir Java Spring Boot projesi
+Spring Boot ile ekleme,silme,gunceleme,arama fonksiyonlari var. Verileri H2 Database ?zerinde tutan basit bir Java Spring Boot projesi
 
-**?lk olarak user yarat?p gerekli de?i?kenleri verdikten sonra o user'?n id'sini al?p account olu?tururken veriyoruz. B?ylece user'la account'u ba?l?yoruz.**
+**Ilk olarak user yaratip gerekli degiskenleri verdikten sonra o user'in id'sini alip account olustururken veriyoruz. Boylece user'la account'u bagliyoruz.**
 
 Basit testler yaz?lm??t?r.
 
