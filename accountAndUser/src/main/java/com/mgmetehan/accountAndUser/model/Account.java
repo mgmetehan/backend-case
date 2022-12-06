@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -25,10 +26,18 @@ public class Account extends BaseModel {
     @Enumerated(EnumType.STRING)
     private AccountType type;
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "account", cascade = CascadeType.MERGE, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<User> users = new ArrayList<>();
 
     @Override
     public <T extends BaseModel> void update(T entity) {
+        var account = (Account) entity;
+
+        if (Objects.nonNull(account.getName())) {
+            name = account.getName();
+        }
+        if (Objects.nonNull(account.getType())) {
+            type = account.getType();
+        }
     }
 }

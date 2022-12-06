@@ -5,11 +5,13 @@ import com.mgmetehan.accountAndUser.model.Account;
 import com.mgmetehan.accountAndUser.model.AccountType;
 import com.mgmetehan.accountAndUser.model.User;
 import com.mgmetehan.accountAndUser.shared.model.dto.AccountDto;
+import com.mgmetehan.accountAndUser.shared.model.dto.AccountUpdateDto;
 import com.mgmetehan.accountAndUser.shared.model.resource.AccountResource;
 import com.mgmetehan.accountAndUser.shared.util.DateUtil;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
+import java.util.Objects;
 
 @Component
 public class AccountConverter implements BaseConverter<AccountDto, Account, AccountResource> {
@@ -17,7 +19,7 @@ public class AccountConverter implements BaseConverter<AccountDto, Account, Acco
     public AccountResource toResource(Account entity) {
         var accountResource = new AccountResource();
         accountResource.setId(entity.getId());
-        accountResource.setUserId(entity.getUsers().get(0).getId());
+        accountResource.setUserId(Objects.nonNull(entity.getUsers().get(0)) ? entity.getUsers().get(0).getId() : null);
         accountResource.setCreatedDate(DateUtil.toDate(entity.getCreatedDateTime()));
         accountResource.setUpdatedDate(DateUtil.toDate(entity.getLastModifiedDate()));
         accountResource.setName(entity.getName());
@@ -34,6 +36,14 @@ public class AccountConverter implements BaseConverter<AccountDto, Account, Acco
         user.setId(dto.getUserId());
 
         account.setUsers(Collections.singletonList(user));
+        account.setType(AccountType.fromDatabaseId(dto.getType()));
+
+        return account;
+    }
+
+    public Account toUpdateEntity(AccountUpdateDto dto) {
+        var account = new Account();
+        account.setName(dto.getName());
         account.setType(AccountType.fromDatabaseId(dto.getType()));
 
         return account;
