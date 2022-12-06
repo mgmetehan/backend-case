@@ -3,10 +3,10 @@ Spring Boot ile ekleme,silme,gunceleme,arama fonksiyonlari var. Verileri H2 Data
 
 **Ilk olarak user yaratip gerekli degiskenleri verdikten sonra o user'in id'sini alip account olustururken veriyoruz. Boylece user'la account'u bagliyoruz.**
 
-Basit testler yaz?lm??t?r.
+Basit testler yazilmistir.
 
 ### Postman Collection
-Buradan t?m i?lemlere ula?abilirsiniz.
+Buradan tum islemlere ulasabilirsiniz.
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/eaec5ba68fd7b8f9eb66?action=collection%2Fimport)
 
