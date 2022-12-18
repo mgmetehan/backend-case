@@ -1,5 +1,6 @@
 package com.mgmetehan.accountAndUser.controller;
 
+import com.mgmetehan.accountAndUser.ratelimit.RateLimiter;
 import com.mgmetehan.accountAndUser.service.UserService;
 import com.mgmetehan.accountAndUser.shared.endpoints.UserEndpoints;
 import com.mgmetehan.accountAndUser.shared.exception.GenericResponse;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -35,7 +37,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResource> get(@PathVariable Long id) {
+    @RateLimiter(limit = 5, time = 60_000)
+    public ResponseEntity<UserResource> get(@PathVariable Long id, HttpSession session) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(userService.getByUserId(id));
